@@ -1,0 +1,95 @@
+
+<section class="cart-section">
+  <div class="cart-heading">
+    <h2>Your Shopping Cart</h2>
+    <p>{{ cart.cartCount() }} item(s) in your cart</p>
+  </div>
+
+  @if (cart.items().length === 0) {
+    <div class="empty-cart">
+      <div class="empty-cart-icon">🛒</div>
+      <h3>Your cart is empty</h3>
+      <p>Add some fresh products to get started.</p>
+    </div>
+  } @else {
+    <div class="cart-layout">
+      <div class="cart-items">
+        @for (item of cart.items(); track item.product._id) {
+          <article class="cart-item">
+            <div class="cart-item-info">
+              <h3>{{ item.product.product_name }}</h3>
+              <p>{{ formatPrice(item.product.price) }} each</p>
+            </div>
+
+            <div class="cart-item-controls">
+              <button
+                type="button"
+                (click)="cart.decreaseQuantity(item.product._id)"
+                aria-label="Decrease quantity"
+              >
+                −
+              </button>
+
+              <strong>{{ item.quantity }}</strong>
+
+              <button
+                type="button"
+                (click)="cart.increaseQuantity(item.product._id)"
+                aria-label="Increase quantity"
+              >
+                +
+              </button>
+            </div>
+
+            <strong class="cart-item-total">
+              {{ formatPrice(item.product.price * item.quantity) }}
+            </strong>
+
+            <button
+              type="button"
+              class="remove-button"
+              (click)="cart.removeFromCart(item.product._id)"
+            >
+              Remove
+            </button>
+          </article>
+        }
+      </div>
+
+      <aside class="cart-summary">
+        <h3>Order Summary</h3>
+
+        <div class="summary-row">
+          <span>Total Items</span>
+          <strong>{{ cart.cartCount() }}</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <strong>{{ formatPrice(cart.cartTotal()) }}</strong>
+        </div>
+
+        <div class="summary-total">
+          <span>Total</span>
+          <strong>{{ formatPrice(cart.cartTotal()) }}</strong>
+        </div>
+
+          
+
+<button
+  type="button"
+  class="order-now-button"
+  (click)="orderNow()"
+  [disabled]="ordering || cart.items().length === 0">
+  {{ ordering ? 'Placing Order...' : 'Order Now' }}
+</button>
+
+<p *ngIf="orderMessage">{{ orderMessage }}</p>
+
+<p *ngIf="orderError" class="error">
+  {{ orderError }}
+</p>
+     </aside>
+    </div>
+  }
+</section>

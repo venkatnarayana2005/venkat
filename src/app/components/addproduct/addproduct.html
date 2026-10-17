@@ -1,0 +1,79 @@
+
+<div class="page">
+  <div class="card">
+    <h2>Add New Product</h2>
+    <p class="subtitle">Natural Foods Admin Panel</p>
+
+    <form #productForm="ngForm" (ngSubmit)="addProduct()">
+      <label for="productName">Product Name</label>
+      <input
+        id="productName"
+        name="product_name"
+        [(ngModel)]="product_name"
+        placeholder="Enter product name"
+        required
+      />
+
+      <label for="price">Price (₹)</label>
+      <input
+        id="price"
+        type="number"
+        name="price"
+        [(ngModel)]="price"
+        min="0.01"
+        step="0.01"
+        placeholder="Enter price"
+        required
+      />
+
+      <label for="category">Category</label>
+      <select id="category" name="category" [(ngModel)]="category">
+        <option value="">Select category</option>
+        <option value="Fruits">Fruits</option>
+        <option value="Vegetables">Vegetables</option>
+        <option value="Grains">Grains</option>
+        <option value="Dairy">Dairy</option>
+        <option value="Dry Fruits">Dry Fruits</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        [(ngModel)]="description"
+        rows="4"
+        placeholder="Enter product description"
+        required
+      ></textarea>
+
+      <label for="productImage">Product Image</label>
+      <input
+        id="productImage"
+        type="file"
+        accept="image/jpeg,image/png,image/webp"
+        (change)="onImageSelected($event)"
+        required
+      />
+
+      <div class="preview" *ngIf="imagePreview">
+        <img [src]="imagePreview" alt="Product preview" />
+      </div>
+
+      <p class="success" *ngIf="successMessage">
+        {{ successMessage }}
+      </p>
+
+      <p class="error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </p>
+
+      <button
+        type="submit"
+        [disabled]="loading || productForm.invalid || !image"
+      >
+        {{ loading ? 'Saving...' : 'Add Product' }}
+      </button>
+    </form>
+  </div>
+</div>

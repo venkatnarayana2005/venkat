@@ -1,0 +1,31 @@
+
+<div class="order-history">
+  <h2>My Order History</h2>
+
+  <p *ngIf="loading">Loading orders...</p>
+
+  <p *ngIf="errorMessage">{{ errorMessage }}</p>
+
+  <p *ngIf="!loading && !errorMessage && orders.length === 0">
+    You haven't placed any orders yet.
+  </p>
+
+  <div *ngFor="let order of orders" class="order-card">
+    <h3>Order #{{ order._id }}</h3>
+
+    <p>
+      Date: {{ order.createdAt | date:'medium' }}
+    </p>
+
+    <p>Status: {{ order.status }}</p>
+
+    <div *ngFor="let item of order.items">
+      {{ item.product_name }}
+      — {{ item.quantity }} × {{ formatPrice(item.price) }}
+    </div>
+
+    <hr />
+
+    <strong>Total: {{ formatPrice(order.totalAmount) }}</strong>
+  </div>
+</div>

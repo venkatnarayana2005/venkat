@@ -1,0 +1,42 @@
+
+<div class="auth-page">
+  <div class="auth-card">
+    <h1>Welcome Back</h1>
+    <p class="subtitle">Login to Natural Foods</p>
+
+    @if (errorMessage) {
+      <div class="error-message">{{ errorMessage }}</div>
+    }
+
+    <form (ngSubmit)="submitLogin()">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        [(ngModel)]="email"
+        required
+        placeholder="Enter your registered email"
+      />
+
+      <label for="password">Password</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        [(ngModel)]="password"
+        required
+        placeholder="Enter your password"
+      />
+
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Logging in...' : 'Login' }}
+      </button>
+    </form>
+
+    <p class="switch-link">
+      Don't have an account?
+      <a routerLink="/register">Register here</a>
+    </p>
+  </div>
+</div>

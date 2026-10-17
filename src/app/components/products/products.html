@@ -1,0 +1,148 @@
+
+<section class="products-section">
+
+  <!-- Products heading -->
+  <div class="products-heading">
+    <span class="eyebrow">FRESH &amp; NATURAL</span>
+    <h1>Our Products</h1>
+    <p>Discover fresh ingredients for a healthier lifestyle.</p>
+  </div>
+
+  <!-- Loading state -->
+  @if (loading) {
+    <div class="status-message">
+      Loading products...
+    </div>
+  }
+
+  <!-- Error state -->
+  @else if (errorMessage) {
+    <div class="status-message error">
+      <p>{{ errorMessage }}</p>
+
+      <button type="button" (click)="loadProducts()">
+        Try Again
+      </button>
+    </div>
+  }
+
+  <!-- Empty products state -->
+  @else if (products.length === 0) {
+    <div class="status-message">
+      <p>No products found.</p>
+
+      <button type="button" (click)="loadProducts()">
+        Refresh Products
+      </button>
+    </div>
+  }
+
+  <!-- Display products -->
+  @else {
+
+    <div class="products-toolbar">
+      <p>{{ products.length }} products available</p>
+
+      <button
+        type="button"
+        class="refresh-button"
+        (click)="loadProducts()"
+        [disabled]="loading">
+        Refresh
+      </button>
+    </div>
+
+    <div class="products-grid">
+
+      <!-- Iterate through the products array -->
+      @for (product of products; track product._id) {
+
+        <article class="product-card">
+
+          <!-- Product image -->
+          <div class="product-image-container">
+
+            @if (product.image) {
+              <img
+                [src]="product.image"
+                [alt]="product.product_name"
+                class="product-image"
+                loading="lazy"
+                (error)="onImageError(product)">
+            } @else {
+              <div class="no-image">
+                Image unavailable
+              </div>
+            }
+
+          </div>
+
+          <!-- Product information -->
+          <div class="product-details">
+
+            <span class="product-category">
+              {{ product.category || 'Natural Food' }}
+            </span>
+
+            <h2>{{ product.product_name }}</h2>
+
+            <p class="product-description">
+              {{ product.description }}
+            </p>
+
+            <!-- Price and cart controls -->
+            <div class="product-footer">
+
+              <span class="product-price">
+                {{ formatPrice(product.price) }}
+              </span>
+
+              @if (getQuantity(product._id) > 0) {
+
+                <div class="quantity-control">
+
+                  <button
+                    type="button"
+                    (click)="decrease(product._id)"
+                    aria-label="Decrease quantity">
+                    −
+                  </button>
+
+                  <span>
+                    {{ getQuantity(product._id) }}
+                  </span>
+
+                  <button
+                    type="button"
+                    (click)="increase(product._id)"
+                    aria-label="Increase quantity">
+                    +
+                  </button>
+
+                </div>
+
+              } @else {
+
+                <button
+                  type="button"
+                  class="add-cart-button"
+                  (click)="addToCart(product)">
+                  Add to Cart
+                </button>
+
+              }
+
+            </div>
+          </div>
+        </article>
+
+      }
+
+    </div>
+  }
+
+</section>
+
+<p>Loading: {{ loading }}</p>
+<p>Error: {{ errorMessage }}</p>
+<p>Product count: {{ products.length }}</p>
