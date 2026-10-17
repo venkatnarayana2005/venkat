@@ -22,34 +22,21 @@
             </div>
 
             <div class="cart-item-controls">
-              <button
-                type="button"
-                (click)="cart.decreaseQuantity(item.product._id)"
-                aria-label="Decrease quantity"
-              >
-                −
-              </button>
+              <button type="button"
+                (click)="cart.decreaseQuantity(item.product._id)">−</button>
 
               <strong>{{ item.quantity }}</strong>
 
-              <button
-                type="button"
-                (click)="cart.increaseQuantity(item.product._id)"
-                aria-label="Increase quantity"
-              >
-                +
-              </button>
+              <button type="button"
+                (click)="cart.increaseQuantity(item.product._id)">+</button>
             </div>
 
             <strong class="cart-item-total">
               {{ formatPrice(item.product.price * item.quantity) }}
             </strong>
 
-            <button
-              type="button"
-              class="remove-button"
-              (click)="cart.removeFromCart(item.product._id)"
-            >
+            <button type="button" class="remove-button"
+              (click)="cart.removeFromCart(item.product._id)">
               Remove
             </button>
           </article>
@@ -74,22 +61,82 @@
           <strong>{{ formatPrice(cart.cartTotal()) }}</strong>
         </div>
 
-          
-
-<button
-  type="button"
-  class="order-now-button"
-  (click)="orderNow()"
-  [disabled]="ordering || cart.items().length === 0">
-  {{ ordering ? 'Placing Order...' : 'Order Now' }}
-</button>
-
-<p *ngIf="orderMessage">{{ orderMessage }}</p>
-
-<p *ngIf="orderError" class="error">
-  {{ orderError }}
-</p>
-     </aside>
+        @if (!showDeliveryForm) {
+          <button type="button" class="order-now-button"
+            (click)="orderNow()">
+            Order Now
+          </button>
+        }
+      </aside>
     </div>
+  }
+
+  @if (showDeliveryForm) {
+    <div class="delivery-overlay">
+      <section class="delivery-form-card">
+        <h2>Delivery Details</h2>
+        <p>Enter your details to confirm your order.</p>
+
+        <form #deliveryForm="ngForm"
+          (ngSubmit)="confirmOrder()">
+
+          <label for="fullName">Full Name</label>
+          <input id="fullName" name="fullName"
+            [(ngModel)]="delivery.fullName"
+            required maxlength="100" />
+
+          <label for="phone">Phone Number</label>
+          <input id="phone" name="phone"
+            [(ngModel)]="delivery.phone"
+            type="tel" inputmode="numeric"
+            pattern="[0-9]{10}" maxlength="10"
+            placeholder="10-digit mobile number" required />
+
+          <label for="address">Delivery Address</label>
+          <textarea id="address" name="address"
+            [(ngModel)]="delivery.address"
+            rows="3" required maxlength="300"></textarea>
+
+          <label for="city">City</label>
+          <input id="city" name="city"
+            [(ngModel)]="delivery.city" required />
+
+          <label for="state">State</label>
+          <input id="state" name="state"
+            [(ngModel)]="delivery.state" required />
+
+          <label for="pincode">PIN Code</label>
+          <input id="pincode" name="pincode"
+            [(ngModel)]="delivery.pincode"
+            inputmode="numeric" pattern="[0-9]{6}"
+            maxlength="6" required />
+
+          <div class="delivery-total">
+            Order Total: {{ formatPrice(cart.cartTotal()) }}
+          </div>
+
+          @if (orderError) {
+            <p class="error">{{ orderError }}</p>
+          }
+
+          <div class="delivery-actions">
+            <button type="button" class="cancel-button"
+              [disabled]="ordering"
+              (click)="cancelDeliveryForm()">
+              Cancel
+            </button>
+
+            <button type="submit" class="order-now-button"
+              [disabled]="ordering || deliveryForm.invalid">
+              {{ ordering ? 'Confirming...' : 'Confirm Order' }}
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+  }
+
+  @if (orderMessage) {
+    <p class="success-message">{{ orderMessage }}</p>
   }
 </section>

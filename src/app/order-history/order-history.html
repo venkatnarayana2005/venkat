@@ -1,31 +1,52 @@
 
-<div class="order-history">
+<section class="history-section">
   <h2>My Order History</h2>
+  <p>View your previous Natural Foods orders.</p>
 
-  <p *ngIf="loading">Loading orders...</p>
-
-  <p *ngIf="errorMessage">{{ errorMessage }}</p>
-
-  <p *ngIf="!loading && !errorMessage && orders.length === 0">
-    You haven't placed any orders yet.
-  </p>
-
-  <div *ngFor="let order of orders" class="order-card">
-    <h3>Order #{{ order._id }}</h3>
-
-    <p>
-      Date: {{ order.createdAt | date:'medium' }}
-    </p>
-
-    <p>Status: {{ order.status }}</p>
-
-    <div *ngFor="let item of order.items">
-      {{ item.product_name }}
-      — {{ item.quantity }} × {{ formatPrice(item.price) }}
+  @if (loading) {
+    <p>Loading your orders...</p>
+  } @else if (errorMessage) {
+    <p class="history-error">{{ errorMessage }}</p>
+  } @else if (orders.length === 0) {
+    <div class="history-empty">
+      <h3>No orders yet</h3>
+      <p>Your confirmed orders will appear here.</p>
     </div>
+  } @else {
+    @for (order of orders; track order._id) {
+      <article class="history-card">
+        <div class="history-header">
+          <div>
+            <h3>Order #{{ order._id }}</h3>
+            <p>{{ order.createdAt | date:'medium' }}</p>
+          </div>
+          <span class="order-status">{{ order.status }}</span>
+        </div>
 
-    <hr />
+        <h4>Delivery Details</h4>
+        <p>{{ order.delivery.fullName }} · {{ order.delivery.phone }}</p>
+        <p>
+          {{ order.delivery.address }},
+          {{ order.delivery.city }},
+          {{ order.delivery.state }} -
+          {{ order.delivery.pincode }}
+        </p>
 
-    <strong>Total: {{ formatPrice(order.totalAmount) }}</strong>
-  </div>
-</div>
+        <h4>Items</h4>
+        @for (item of order.items; track item.productId) {
+          <div class="history-item">
+            <span>{{ item.product_name }} × {{ item.quantity }}</span>
+            <strong>
+              {{ formatPrice(item.price * item.quantity) }}
+            </strong>
+          </div>
+        }
+
+        <div class="history-total">
+          <span>Total</span>
+          <strong>{{ formatPrice(order.totalAmount) }}</strong>
+        </div>
+      </article>
+    }
+  }
+</section>

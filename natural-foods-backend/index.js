@@ -18,11 +18,14 @@ app.use(express.urlencoded({ extended: true }));
 
 // Import ONLY the route files that exist
 const authRoutes = require('./routes/auth');
-const productRoutes = require('./routes/products');
+const productRoutes = require('./routes/products')
+const orderRoutes = require('./routes/orders');;
 
 // Register routes
 app.use('/auth', authRoutes);
 app.use('/products', productRoutes);
+app.use('/api/products', productRoutes);
+app.use('/orders', orderRoutes);
 
 // Home route
 app.get('/', (req, res) => {
