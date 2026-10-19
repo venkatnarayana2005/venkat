@@ -15,7 +15,6 @@ import { Home } from './components/home/home';
 import { Products } from './components/products/products';
 import { Cart } from './components/cart/cart';
 import { CartService } from './services/cart';
-import { Addproduct } from './components/addproduct/addproduct';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +26,6 @@ import { Addproduct } from './components/addproduct/addproduct';
     Home,
     Products,
     Cart,
-    Addproduct
 ],
   templateUrl: './app.html',
   styleUrl: './app.css'

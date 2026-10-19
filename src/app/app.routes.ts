@@ -6,8 +6,6 @@ import { Register } from './components/register/register';
 import { Login } from './components/login/login';
 import { Products } from './components/products/products';
 
-import { Addproduct } from './components/addproduct/addproduct';
-import { OrderHistory } from './order-history/order-history';
 
 export const routes: Routes = [
   { 
@@ -29,14 +27,6 @@ export const routes: Routes = [
   { 
     path: 'login', 
     component: Login 
-  },
-  {
-    path: 'order-history',
-    component: OrderHistory
-  },
-  {
-    path: 'admin/add-product',
-    component: Addproduct
   },
   { 
     path: '**', 

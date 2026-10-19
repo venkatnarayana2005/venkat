@@ -16,51 +16,51 @@ export class ProductService {
     return this.http.get<Product[]>(this.apiUrl);
   }
 
-  // 2. GET PRODUCT BY ID
-  getProductById(id: string): Observable<Product> {
-    return this.http.get<Product>(
-      `${this.apiUrl}/${encodeURIComponent(id)}`
-    );
-  }
+  // // 2. GET PRODUCT BY ID
+  // getProductById(id: string): Observable<Product> {
+  //   return this.http.get<Product>(
+  //     `${this.apiUrl}/${encodeURIComponent(id)}`
+  //   );
+  // }
 
-  // 3. ADD PRODUCT
-  addProduct(formData: FormData): Observable<{
-    message: string;
-    product: Product;
-  }> {
-    return this.http.post<{
-      message: string;
-      product: Product;
-    }>(this.apiUrl, formData);
-  }
+  // // 3. ADD PRODUCT
+  // addProduct(formData: FormData): Observable<{
+  //   message: string;
+  //   product: Product;
+  // }> {
+  //   return this.http.post<{
+  //     message: string;
+  //     product: Product;
+  //   }>(this.apiUrl, formData);
+  // }
 
-  // 4. UPDATE PRODUCT
-  updateProduct(
-    id: string,
-    data: FormData | Partial<Product>
-  ): Observable<{
-    message: string;
-    product: Product;
-  }> {
-    return this.http.put<{
-      message: string;
-      product: Product;
-    }>(
-      `${this.apiUrl}/${encodeURIComponent(id)}`,
-      data
-    );
-  }
+  // // 4. UPDATE PRODUCT
+  // updateProduct(
+  //   id: string,
+  //   data: FormData | Partial<Product>
+  // ): Observable<{
+  //   message: string;
+  //   product: Product;
+  // }> {
+  //   return this.http.put<{
+  //     message: string;
+  //     product: Product;
+  //   }>(
+  //     `${this.apiUrl}/${encodeURIComponent(id)}`,
+  //     data
+  //   );
+  // }
 
-  // 5. DELETE PRODUCT
-  deleteProduct(id: string): Observable<{
-    message: string;
-  }> {
-    return this.http.delete<{
-      message: string;
-    }>(
-      `${this.apiUrl}/${encodeURIComponent(id)}`
-    );
-  }
+  // // 5. DELETE PRODUCT
+  // deleteProduct(id: string): Observable<{
+  //   message: string;
+  // }> {
+  //   return this.http.delete<{
+  //     message: string;
+  //   }>(
+  //     `${this.apiUrl}/${encodeURIComponent(id)}`
+  //   );
+  // }
 
   // 6. CONVERT IMAGE DATA TO IMAGE URL
   getImageUrl(image: unknown): string {

@@ -1,1 +1,72 @@
-<p>navbar works!</p>
+<button
+  type="button"
+  class="orders-icon"
+  aria-label="My Orders"
+  title="My Orders"
+  (click)="toggleOrderHistory()"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.8"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M5 8h14l1 13H4L5 8Z"></path>
+    <path d="M9 8a3 3 0 0 1 6 0"></path>
+  </svg>
+</button>
+
+<div
+  class="order-popup-backdrop"
+  *ngIf="showOrderHistory"
+  (click)="toggleOrderHistory()"
+>
+  <section
+    class="order-popup"
+    (click)="$event.stopPropagation()"
+  >
+    <header class="order-popup-header">
+      <div>
+        <h2>My Order History</h2>
+        <p>View your Natural Foods purchases.</p>
+      </div>
+
+      <button
+        type="button"
+        class="close-popup"
+        aria-label="Close"
+        (click)="toggleOrderHistory()"
+      >
+        &times;
+      </button>
+    </header>
+
+    <div class="order-popup-content">
+      <p *ngIf="ordersLoading">Loading your orders...</p>
+
+      <div *ngIf="!ordersLoading && ordersError" class="error">
+        <p>{{ ordersError }}</p>
+        <button type="button" (click)="loadOrderHistory()">
+          Try Again
+        </button>
+      </div>
+
+      <p
+        *ngIf="!ordersLoading && !ordersError && orders.length === 0"
+      >
+        You haven't placed any orders yet.
+      </p>
+
+      <article *ngFor="let order of orders" class="order-card">
+        <h3>Order #{{ order._id }}</h3>
+        <p>Total: ₹{{ order.totalAmount }}</p>
+        <p>Status: {{ order.status || 'Pending' }}</p>
+      </article>
+    </div>
+  </section>
+</div>

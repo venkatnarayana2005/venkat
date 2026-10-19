@@ -1,0 +1,93 @@
+.orders-icon {
+  width: 64px;
+  height: 64px;
+  border: none;
+  border-radius: 50%;
+  background: #e2eadb;
+  color: #28633b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.order-popup-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 90px 24px 24px;
+}
+
+.order-popup {
+  width: 100%;
+  max-width: 440px;
+  max-height: 75vh;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.order-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.order-popup-header h2 {
+  margin: 0;
+  color: #28633b;
+}
+
+.order-popup-header p {
+  margin-bottom: 0;
+  color: #777;
+  font-size: 14px;
+}
+
+.close-popup {
+  border: none;
+  background: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.order-popup-content {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.order-card {
+  border: 1px solid #e5e9e3;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.order-card h3 {
+  color: #28633b;
+  overflow-wrap: anywhere;
+}
+
+.error {
+  color: #c62828;
+}
+
+@media (max-width: 600px) {
+  .order-popup-backdrop {
+    padding: 76px 12px 12px;
+  }
+
+  .order-popup {
+    max-width: 100%;
+    max-height: 80vh;
+  }
+}
