@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema(
@@ -9,20 +10,59 @@ const orderSchema = new mongoose.Schema(
     },
 
     delivery: {
-      fullName: { type: String, required: true },
-      phone: { type: String, required: true },
-      address: { type: String, required: true },
-      city: { type: String, required: true },
-      state: { type: String, required: true },
-      pincode: { type: String, required: true }
+      fullName: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      phone: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      address: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      city: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      state: {
+        type: String,
+        required: true,
+        trim: true
+      },
+      pincode: {
+        type: String,
+        required: true,
+        trim: true
+      }
     },
 
     items: [
       {
-        productId: { type: String, default: '' },
-        product_name: { type: String, required: true },
-        price: { type: Number, required: true, min: 0 },
-        quantity: { type: Number, required: true, min: 1 }
+        productId: {
+          type: String,
+          default: ''
+        },
+        product_name: {
+          type: String,
+          required: true,
+          trim: true
+        },
+        price: {
+          type: Number,
+          required: true,
+          min: 0
+        },
+        quantity: {
+          type: Number,
+          required: true,
+          min: 1
+        }
       }
     ],
 
@@ -31,13 +71,6 @@ const orderSchema = new mongoose.Schema(
       required: true,
       min: 0
     },
-    userEmail: {
-  type: String,
-  required: true,
-  lowercase: true,
-  trim: true,
-  index: true
-},
 
     status: {
       type: String,
