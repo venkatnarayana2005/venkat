@@ -1,66 +1,120 @@
 
-.history-section {
+.order-history {
   max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 20px;
+  margin: 100px auto 40px;
+  padding: 24px;
+  color: #26372b;
 }
 
-.history-section h2 {
-  color: #214a2d;
+.order-history h2 {
+  color: #246b3b;
+  margin-bottom: 8px;
 }
 
-.history-empty,
-.history-card {
-  margin: 20px 0;
-  padding: 22px;
-  border: 1px solid #e0e9dc;
-  border-radius: 12px;
+.subtitle {
+  color: #68736b;
+  margin-bottom: 28px;
+}
+
+.order-card {
   background: #fff;
+  border: 1px solid #dce7dd;
+  border-radius: 14px;
+  padding: 22px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
 }
 
-.history-header {
+.order-header,
+.order-footer,
+.item {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 15px;
+  gap: 16px;
 }
 
-.history-header h3 {
-  margin-top: 0;
-  color: #214a2d;
+.order-header {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e7eee8;
+}
+
+.order-header h3 {
   overflow-wrap: anywhere;
 }
 
-.order-status {
-  padding: 6px 10px;
+.order-header p,
+.item p,
+.delivery p {
+  margin: 6px 0;
+  color: #667168;
+}
+
+.status {
+  background: #e4f5e8;
+  color: #23733a;
+  padding: 7px 12px;
   border-radius: 20px;
-  background: #e5f4e5;
-  color: #216b31;
   font-size: 13px;
-  font-weight: 700;
+  white-space: nowrap;
 }
 
-.history-item,
-.history-total {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 10px 0;
+.order-items {
+  padding: 14px 0;
 }
 
-.history-total {
-  margin-top: 12px;
-  border-top: 1px solid #e0e9dc;
-  color: #214a2d;
-  font-size: 18px;
+.item {
+  padding: 12px 0;
+  border-bottom: 1px solid #edf1ed;
 }
 
-.history-error {
-  color: #b91c1c;
+.delivery {
+  padding: 12px 0;
 }
 
-@media (max-width: 500px) {
-  .history-header {
-    flex-direction: column;
+.delivery h4 {
+  margin-bottom: 10px;
+}
+
+.order-footer {
+  border-top: 1px solid #e7eee8;
+  padding-top: 18px;
+  font-size: 17px;
+}
+
+.order-footer strong {
+  color: #23733a;
+}
+
+.message,
+.empty,
+.error {
+  padding: 28px;
+  border-radius: 12px;
+  background: #f5f8f5;
+  text-align: center;
+}
+
+.error {
+  background: #fff0f0;
+  color: #b42318;
+}
+
+@media (max-width: 600px) {
+  .order-history {
+    padding: 16px;
+    margin-top: 90px;
+  }
+
+  .order-card {
+    padding: 16px;
+  }
+
+  .order-header {
+    align-items: flex-start;
+  }
+
+  .item {
+    align-items: flex-start;
   }
 }

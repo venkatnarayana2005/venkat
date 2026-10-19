@@ -260,11 +260,12 @@ import { finalize, timeout } from 'rxjs';
 
 import { CartService, Product } from '../../services/cart';
 import { ProductService } from '../../services/product';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './products.html',
   styleUrl: './products.css'
 })
@@ -275,6 +276,7 @@ export class Products implements OnInit {
   readonly cart = inject(CartService);
 
   products: Product[] = [];
+
   loading = false;
   errorMessage = '';
 
@@ -385,4 +387,38 @@ next: (response) => {
 
     product.image = '';
   }
+
+  
+searchText = '';
+filteredProducts: Product[] = [];
+hasSearched = false;
+
+filterProducts(): void {
+  const search = this.searchText.trim().toLowerCase();
+
+  // Empty search: display every product
+  if (!search) {
+    this.filteredProducts = [...this.products];
+    this.hasSearched = false;
+    return;
+  }
+
+  this.hasSearched = true;
+
+  // Search by product name OR category
+  this.filteredProducts = this.products.filter(product =>
+    (product.product_name || '').toLowerCase().includes(search) ||
+    (product.category || '').toLowerCase().includes(search)
+  );
+}
+
+refreshProducts(): void {
+  this.searchText = '';
+  this.hasSearched = false;
+  this.filteredProducts = [...this.products];
+
+  // Reload the latest products from the backend
+  this.loadProducts();
+}
+
 }

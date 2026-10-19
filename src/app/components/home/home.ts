@@ -1,9 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
-  imports: [],
   selector: 'app-home',
-  styleUrl: './home.css',
+  standalone: true,
   templateUrl: './home.html',
+  styleUrl: './home.css'
 })
-export class Home {}
+export class Home {
+  private router = inject(Router);
+
+  openCategory(category: string): void {
+    this.router.navigate(['/products'], {
+      queryParams: { category: category }
+    });
+  }
+}

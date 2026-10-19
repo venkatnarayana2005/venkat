@@ -45,7 +45,8 @@ export class OrderService {
   }
 
   
-  getOrderHistory(userId: string): Observable<Order[]> {
+  
+getOrderHistory(userId: string) {
   return this.http
     .get<{ success: boolean; orders: Order[] }>(
       `${this.apiUrl}/user/${encodeURIComponent(userId)}`
@@ -54,5 +55,6 @@ export class OrderService {
       map(response => response.orders ?? [])
     );
 }
+
 
 }

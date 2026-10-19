@@ -16,4 +16,39 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+  try {
+    const { product_name, price, description, category, image } = req.body;
+
+    if (!product_name || price === undefined || price === null) {
+      return res.status(400).json({
+        success: false,
+        message: 'Product name and price are required.'
+      });
+    }
+
+    const product = await Product.create({
+      product_name: String(product_name).trim(),
+      price: Number(price),
+      description: description || '',
+      category: category || '',
+      ...(image !== undefined ? { image } : {})
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: 'Product added successfully.',
+      product
+    });
+  } catch (error) {
+    console.error('POST /products error:', error);
+
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to add product.',
+      error: error.message
+    });
+  }
+});
+
 module.exports = router;

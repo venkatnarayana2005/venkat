@@ -103,6 +103,7 @@ router.post('/', async (req, res) => {
 });
 
 // GET /orders/user/:userId - Retrieve orders by user ID
+
 router.get('/user/:userId', async (req, res) => {
   try {
     const userId = String(req.params.userId || '').trim();
@@ -114,15 +115,20 @@ router.get('/user/:userId', async (req, res) => {
       });
     }
 
+    // Retrieve orders belonging to this user
     const orders = await Order.find({ userId })
       .sort({ createdAt: -1 });
+
+    console.log('User ID:', userId);
+    console.log('Orders found:', orders.length);
 
     return res.status(200).json({
       success: true,
       orders
     });
+
   } catch (error) {
-    console.error('GET /orders/user error:', error);
+    console.error('Order history error:', error);
 
     return res.status(500).json({
       success: false,
@@ -131,5 +137,6 @@ router.get('/user/:userId', async (req, res) => {
     });
   }
 });
+
 
 module.exports = router;

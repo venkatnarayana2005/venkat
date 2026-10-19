@@ -20,6 +20,8 @@
     </a>
 
     <!-- Navigation links -->
+
+    
     <div class="nav-links" [class.open]="menuOpen">
       <a href="#home" (click)="scrollTo('home', $event)">Home</a>
       <a href="#products" (click)="scrollTo('products', $event)">Products</a>
@@ -233,7 +235,6 @@
         </div>
       } @else {
         <a routerLink="/login" (click)="closeMenu()">Login</a>
-        <a routerLink="/register" (click)="closeMenu()">Register</a>
       }
     </div>
   </nav>
